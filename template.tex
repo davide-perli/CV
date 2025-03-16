@@ -1,0 +1,123 @@
+%----------------------------------------------------------------------------------------
+% PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[letterpaper]{twentysecondcv} % a4paper for A4
+\usepackage{etoolbox} % Required for patching commands
+
+%----------------------------------------------------------------------------------------
+% PERSONAL INFORMATION
+%----------------------------------------------------------------------------------------
+
+% If you don't need one or more of the below, just remove the content leaving the command, e.g. \cvnumberphone{}
+
+\profilepic{profile_pic.png} % Profile picture
+
+\renewcommand{\cvname}{{\fontsize{22}{11}\selectfont \textsf{Perli Davide Andrea}}}
+
+\cvjobtitle{IT} % Job title/career
+
+\cvdate{14 May 2004} % Date of birth
+\cvaddress{Bucharest/Romania} % Short address/location, use \newline if more than 1 line is required
+\cvnumberphone{+40 0775101170} % Phone number
+\usepackage{hyperref} % Make sure this package is loaded
+\cvsite{\href{https://github.com/davide-perli}{https://github.com/davide-perli}}  % Personal website
+\cvmail{perlidavide@gmail.com} % Email address
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+% ABOUT ME
+%----------------------------------------------------------------------------------------
+
+\aboutme{My name is Perli Davide Andrea, I am 20 years old and I am a second-year student at the Faculty of Mathematics and Computer Science at the University of Bucharest. I am interested in web application development (full stack) and low-level programming, but also in other fields and I'm always open and interested in learning new skills.} % To have no About Me section, just remove all the text and leave \aboutme{}
+
+%----------------------------------------------------------------------------------------
+% SKILLS
+%----------------------------------------------------------------------------------------
+
+% Skill bar section, each skill must have a value between 0 an 6 (float)
+\skills{{HTML\slash CSS/5.2},{AT\&T x86\slash GCC inline Assembly/3.7},{PL\slash SQL/4.1},{C\slash C++/5},{Python/5.4}}
+
+
+%------------------------------------------------
+\makeprofile % Print the sidebar
+%----------------------------------------------------------------------------------------
+% EDUCATION
+%----------------------------------------------------------------------------------------
+
+\section{Education}
+
+\begin{twenty} % Environment for a list with descriptions
+    \twentyitem{since 2023}{Faculty of Mathematics and Computer Science.}{Bucharest\slash Romania}{\emph{University of Bucharest.}}
+    \twentyitem{2019-2023}{``Gheorghe Șincai'' National College}{Bucharest\slash Romania}{\emph{High School Diploma.}} 
+    %\twentyitem{<dates>}{<title>}{<location>}{<description>}
+\end{twenty}
+
+
+%----------------------------------------------------------------------------------------
+% PROJECTS
+%----------------------------------------------------------------------------------------
+
+\section{Projects}
+
+\begin{twenty} % Environment for a list with descriptions
+
+    \twentyitem{}{ \href{https://github.com/davide-perli/Pufic-Shop}{\textbf{Pufic Store Web App}}}{}
+    {The app represents a store where customers can register, place orders, interact with a menu, receive automated emails, and generate invoices in PDF format, ban users that try to take over the app, warn me if someone tries to login with admin crediantials.}
+
+    \twentyitem{}{ \href{https://github.com/davide-perli/Proiect-poo}{\textbf{Icescream Shop}}}{}
+    {Implemented object-oriented programming concepts such as abstraction, polymorphism, inheritance, and encapsulation in a C++ program simulating the management of an ice cream shop.}
+
+    \twentyitem{}{ \href{https://github.com/davide-perli/AF/tree/main/Algorithms}{\textbf{Algorithms}}}{}
+    {Worked on algorithmic problems in C++, including Dijkstra’s algorithm, Floyd-Warshall, and Bellman-Ford.}
+
+    \twentyitem{}{ \href{https://github.com/davide-perli/LFA}{\textbf{Automata Implementation}}}{}
+    {Modeled deterministic and nondeterministic finite automata, $\lambda$-automata, and a pushdown deterministic automaton in Python.}
+
+    \twentyitem{}{ \href{https://github.com/davide-perli/Assembly-Project/blob/main/Cerinta_0.s}{\textbf{Conway’s Game of Life}}}{}
+    {Implementation of the famous 0 player game in AT\&T x86 Assembly}
+
+    \twentyitem{}{ \href{https://github.com/davide-perli/ASC/blob/main/Tema_Laborator/232_Perli_Davide_Andrea.s}{\textbf{File Storage Simulation}}}{}
+    {Simulated file storage in a predefined continuous memory, implementing deletion, defragmentation, and address retrieval. This is meant to give a basic visual representation of how an operating system handles storage behind the scenes when we give normal commnads such as create/delete file/folder.}
+
+\end{twenty}
+
+
+%----------------------------------------------------------------------------------------
+% CURRENT PROJECTS
+%----------------------------------------------------------------------------------------
+
+\section{Current Projects}
+
+\begin{twenty} % Environment for a list with descriptions
+
+    \twentyitem{}{\large \textbf{\textsc{Terminal Simulator in C}}}{} 
+    {Developing an application in C that simulates a terminal. It allows conversions between decimal, binary, and hexadecimal systems, performs calculations, and supports virtual file/directory creation without physical storage. The app also enables deleting these virtual files and directories. Inline assembly is integrated for performance optimizations.}
+
+    \twentyitem{}{\large \textbf{\textsc{Custom Programming Language (Python-based)}}}{}
+    {Developing a programming language inspired by Python, featuring a custom lexer, parser, compiler, and other necessary components. The language includes unique tokens and syntax designed for flexibility and ease of use.}
+
+\end{twenty}
+
+
+%----------------------------------------------------------------------------------------
+% LANGUAGES & TECHNOLOGIES
+%----------------------------------------------------------------------------------------
+
+\section{Languages \& Technologies}
+
+\begin{twentyshort} % Environment for a short list with no descriptions
+
+    \twentyitemshort{}{\large \textbf{Languages}: \normalsize English, Italian, Romanian.}
+
+    \twentyitemshort{}{\large \textbf{Operating Systems}: \normalsize Windows 10/11, Linux (Debian, Ubuntu, Kali Linux), FreeBSD.}
+
+    \twentyitemshort{}{\large \textbf{IDEs}: \normalsize VSCode (preferred), JetBrains Suite (PyCharm, CLion, IntelliJ, etc.).}
+
+\end{twentyshort}
+
+
+\end{document}
