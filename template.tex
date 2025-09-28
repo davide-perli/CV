@@ -1,123 +1,269 @@
-%----------------------------------------------------------------------------------------
-% PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
-
-\documentclass[letterpaper]{twentysecondcv} % a4paper for A4
-\usepackage{etoolbox} % Required for patching commands
+\ProvidesClass{twentysecondcv}[2017/01/08 CV class]
+\LoadClass{article}
+\NeedsTeXFormat{LaTeX2e}
 
 %----------------------------------------------------------------------------------------
-% PERSONAL INFORMATION
+%	 REQUIRED PACKAGES
 %----------------------------------------------------------------------------------------
 
-% If you don't need one or more of the below, just remove the content leaving the command, e.g. \cvnumberphone{}
+\RequirePackage[sfdefault]{ClearSans}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{tikz}
+\RequirePackage{xcolor}
+\RequirePackage[absolute,overlay]{textpos}
+\RequirePackage{ragged2e}
+\RequirePackage{etoolbox}
+\RequirePackage{ifmtarg}
+\RequirePackage{ifthen}
+\RequirePackage{pgffor}
+\RequirePackage{marvosym}
+\RequirePackage{parskip}
 
-\profilepic{profile_pic.png} % Profile picture
-
-\renewcommand{\cvname}{{\fontsize{22}{11}\selectfont \textsf{Perli Davide Andrea}}}
-
-\cvjobtitle{IT} % Job title/career
-
-\cvdate{14 May 2004} % Date of birth
-\cvaddress{Bucharest/Romania} % Short address/location, use \newline if more than 1 line is required
-\cvnumberphone{+40 0775101170} % Phone number
-\usepackage{hyperref} % Make sure this package is loaded
-\cvsite{\href{https://github.com/davide-perli}{https://github.com/davide-perli}}  % Personal website
-\cvmail{perlidavide@gmail.com} % Email address
-
-%----------------------------------------------------------------------------------------
-
-\begin{document}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+\ProcessOptions\relax
 
 %----------------------------------------------------------------------------------------
-% ABOUT ME
+%	 COLOURS
 %----------------------------------------------------------------------------------------
 
-\aboutme{My name is Perli Davide Andrea, I am 20 years old and I am a second-year student at the Faculty of Mathematics and Computer Science at the University of Bucharest. I am interested in web application development (full stack) and low-level programming, but also in other fields and I'm always open and interested in learning new skills.} % To have no About Me section, just remove all the text and leave \aboutme{}
+\definecolor{white}{RGB}{255,255,255}
+\definecolor{gray}{HTML}{4D4D4D}
+\definecolor{sidecolor}{HTML}{E7E7E7}
+\definecolor{mainblue}{HTML}{0E5484}
+\definecolor{maingray}{HTML}{B9B9B9}
 
 %----------------------------------------------------------------------------------------
-% SKILLS
+%	 MISC CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-% Skill bar section, each skill must have a value between 0 an 6 (float)
-\skills{{HTML\slash CSS/5.2},{AT\&T x86\slash GCC inline Assembly/3.7},{PL\slash SQL/4.1},{C\slash C++/5},{Python/5.4}}
+\renewcommand{\bfseries}{\color{gray}} % Make \textbf produce coloured text instead
 
+\pagestyle{empty} % Disable headers and footers
 
-%------------------------------------------------
-\makeprofile % Print the sidebar
-%----------------------------------------------------------------------------------------
-% EDUCATION
-%----------------------------------------------------------------------------------------
-
-\section{Education}
-
-\begin{twenty} % Environment for a list with descriptions
-    \twentyitem{since 2023}{Faculty of Mathematics and Computer Science.}{Bucharest\slash Romania}{\emph{University of Bucharest.}}
-    \twentyitem{2019-2023}{``Gheorghe Șincai'' National College}{Bucharest\slash Romania}{\emph{High School Diploma.}} 
-    %\twentyitem{<dates>}{<title>}{<location>}{<description>}
-\end{twenty}
-
+\setlength{\parindent}{0pt} % Disable paragraph indentation
 
 %----------------------------------------------------------------------------------------
-% PROJECTS
+%	 SIDEBAR DEFINITIONS
 %----------------------------------------------------------------------------------------
 
-\section{Projects}
+\setlength{\TPHorizModule}{1cm} % Left margin
+\setlength{\TPVertModule}{1cm} % Top margin
 
-\begin{twenty} % Environment for a list with descriptions
+\newlength\imagewidth
+\newlength\imagescale
+\pgfmathsetlength{\imagewidth}{5cm}
+\pgfmathsetlength{\imagescale}{\imagewidth/600}
 
-    \twentyitem{}{ \href{https://github.com/davide-perli/Pufic-Shop}{\textbf{Pufic Store Web App}}}{}
-    {The app represents a store where customers can register, place orders, interact with a menu, receive automated emails, and generate invoices in PDF format, ban users that try to take over the app, warn me if someone tries to login with admin crediantials.}
+\newlength{\TotalSectionLength} % Define a new length to hold the remaining line width after the section title is printed
+\newlength{\SectionTitleLength} % Define a new length to hold the width of the section title
+\newcommand{\profilesection}[1]{%
+	\setlength\TotalSectionLength{\linewidth}% Set the total line width
+	\settowidth{\SectionTitleLength}{\huge #1 }% Calculate the width of the section title
+	\addtolength\TotalSectionLength{-\SectionTitleLength}% Subtract the section title width from the total width
+	\addtolength\TotalSectionLength{-2.22221pt}% Modifier to remove overfull box warning
+	\vspace{8pt}% Whitespace before the section title
+	{\color{black!80} \huge #1 \rule[0.15\baselineskip]{\TotalSectionLength}{1pt}}% Print the title and auto-width rule
+}
 
-    \twentyitem{}{ \href{https://github.com/davide-perli/Proiect-poo}{\textbf{Icescream Shop}}}{}
-    {Implemented object-oriented programming concepts such as abstraction, polymorphism, inheritance, and encapsulation in a C++ program simulating the management of an ice cream shop.}
+% Define custom commands for CV info
+\newcommand{\cvdate}[1]{\renewcommand{\cvdate}{#1}}
+\newcommand{\cvmail}[1]{\renewcommand{\cvmail}{#1}}
+\newcommand{\cvnumberphone}[1]{\renewcommand{\cvnumberphone}{#1}}
+\newcommand{\cvaddress}[1]{\renewcommand{\cvaddress}{#1}}
+\newcommand{\cvsite}[1]{\renewcommand{\cvsite}{#1}}
+\newcommand{\cvgithub}[1]{\renewcommand{\cvgithub}{#1}}
+\newcommand{\cvkaggle}[1]{\renewcommand{\cvkaggle}{#1}}
+\newcommand{\cvlinkedin}[1]{\renewcommand{\cvlinkedin}{#1}}
+\newcommand{\aboutme}[1]{\renewcommand{\aboutme}{#1}}
+\newcommand{\profilepic}[1]{\renewcommand{\profilepic}{#1}}
+\newcommand{\cvname}[1]{\renewcommand{\cvname}{#1}}
+\newcommand{\cvjobtitle}[1]{\renewcommand{\cvjobtitle}{#1}}
 
-    \twentyitem{}{ \href{https://github.com/davide-perli/AF/tree/main/Algorithms}{\textbf{Algorithms}}}{}
-    {Worked on algorithmic problems in C++, including Dijkstra’s algorithm, Floyd-Warshall, and Bellman-Ford.}
+% Command for printing the contact information icons
+\newcommand*\icon[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=1pt, fill=mainblue,mainblue,text=white] (char) {#1};}}
 
-    \twentyitem{}{ \href{https://github.com/davide-perli/LFA}{\textbf{Automata Implementation}}}{}
-    {Modeled deterministic and nondeterministic finite automata, $\lambda$-automata, and a pushdown deterministic automaton in Python.}
+% Command for printing skill progress bars
+\newcommand\skills[1]{ 
+	\renewcommand{\skills}{
+		\begin{tikzpicture}
+			\foreach [count=\i] \x/\y in {#1}{
+				\draw[fill=maingray,maingray] (0,\i) rectangle (6,\i+0.4);
+				\draw[fill=white,mainblue](0,\i) rectangle (\y,\i+0.4);
+				\node [above right] at (0,\i+0.4) {\x};
+			}
+		\end{tikzpicture}
+	}
+}
 
-    \twentyitem{}{ \href{https://github.com/davide-perli/Assembly-Project/blob/main/Cerinta_0.s}{\textbf{Conway’s Game of Life}}}{}
-    {Implementation of the famous 0 player game in AT\&T x86 Assembly}
-
-    \twentyitem{}{ \href{https://github.com/davide-perli/ASC/blob/main/Tema_Laborator/232_Perli_Davide_Andrea.s}{\textbf{File Storage Simulation}}}{}
-    {Simulated file storage in a predefined continuous memory, implementing deletion, defragmentation, and address retrieval. This is meant to give a basic visual representation of how an operating system handles storage behind the scenes when we give normal commnads such as create/delete file/folder.}
-
-\end{twenty}
-
+% Command for printing skills text
+\newcommand\skillstext[1]{ 
+	\renewcommand{\skillstext}{
+		\begin{flushleft}
+			\foreach [count=\i] \x/\y in {#1}{ 
+				\x$ \star $\y
+			}
+		\end{flushleft}
+	}
+}
 
 %----------------------------------------------------------------------------------------
-% CURRENT PROJECTS
+%	 SIDEBAR LAYOUT
 %----------------------------------------------------------------------------------------
 
-\section{Current Projects}
+\newcommand{\makeprofile}{
+	\begin{tikzpicture}[remember picture,overlay]
+   		\node [rectangle, fill=sidecolor, anchor=north, minimum width=9cm, minimum height=\paperheight+1cm] (box) at (-5cm,0.5cm){};
+	\end{tikzpicture}
 
-\begin{twenty} % Environment for a list with descriptions
+	%------------------------------------------------
 
-    \twentyitem{}{\large \textbf{\textsc{Terminal Simulator in C}}}{} 
-    {Developing an application in C that simulates a terminal. It allows conversions between decimal, binary, and hexadecimal systems, performs calculations, and supports virtual file/directory creation without physical storage. The app also enables deleting these virtual files and directories. Inline assembly is integrated for performance optimizations.}
+	\begin{textblock}{6}(0.5, 0.2)
+			
+		%------------------------------------------------
+		
+		\ifthenelse{\equal{\profilepic}{}}{}{
+			\begin{center}
+				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+					\clip (600/2, 567/2) circle (567/2);
+					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{\profilepic}};
+				\end{tikzpicture}
+			\end{center}
+		}
 
-    \twentyitem{}{\large \textbf{\textsc{Custom Programming Language (Python-based)}}}{}
-    {Developing a programming language inspired by Python, featuring a custom lexer, parser, compiler, and other necessary components. The language includes unique tokens and syntax designed for flexibility and ease of use.}
+		%------------------------------------------------
 
-\end{twenty}
+		{\Huge\color{mainblue}\cvname}
 
+		%------------------------------------------------
+
+		{\Large\color{black!80}\cvjobtitle}
+
+		%------------------------------------------------
+
+		\renewcommand{\arraystretch}{1.6}
+		\begin{tabular}{p{0.5cm} @{\hskip 0.5cm}p{5cm}}
+			\ifthenelse{\equal{\cvdate}{}}{}{\textsc{\Large\icon{\Info}} & \cvdate\\}
+			\ifthenelse{\equal{\cvaddress}{}}{}{\textsc{\Large\icon{\Letter}} & \cvaddress\\}
+			\ifthenelse{\equal{\cvnumberphone}{}}{}{\textsc{\Large\icon{\Telefon}} & \cvnumberphone\\}
+			\ifthenelse{\equal{\cvgithub}{}}{}{\textsc{\Large\icon{\Mundus}} & \cvgithub\\}
+\ifthenelse{\equal{\cvkaggle}{}}{}{\textsc{\Large\icon{\Mundus}} & \cvkaggle\\}
+\ifthenelse{\equal{\cvlinkedin}{}}{}{\textsc{\Large\icon{\Mundus}} & \cvlinkedin\\}
+
+			\ifthenelse{\equal{\cvmail}{}}{}{\textsc{\large\icon{@}} & \href{mailto:\cvmail}{\cvmail}}
+		\end{tabular}
+
+		%------------------------------------------------
+		
+		\ifthenelse{\equal{\aboutme}{}}{}{
+			\profilesection{About me}
+			\begin{flushleft}
+				\aboutme
+			\end{flushleft}
+		}
+
+		%------------------------------------------------
+
+		\profilesection{Skills}
+
+		\skills
+		\skillstext
+		\scriptsize
+		(*)[The skill scale is from 0 (Fundamental Awareness) to 6 (Expert).]
+			
+		%------------------------------------------------
+			
+	\end{textblock}
+}
 
 %----------------------------------------------------------------------------------------
-% LANGUAGES & TECHNOLOGIES
+%	 COLOURED SECTION TITLE BOX
 %----------------------------------------------------------------------------------------
 
-\section{Languages \& Technologies}
+% Command to create the rounded boxes around the first three letters of section titles
+\newcommand*\round[2]{%
+	\tikz[baseline=(char.base)]\node[anchor=north west, draw,rectangle, rounded corners, inner sep=1.6pt, minimum size=5.5mm, text height=3.6mm, fill=#2,#2,text=white](char){#1};%
+}
 
-\begin{twentyshort} % Environment for a short list with no descriptions
+\newcounter{colorCounter}
+\newcommand{\sectioncolor}[1]{%
+	{%
+		\round{#1}{
+			\ifcase\value{colorCounter}%
+			maingray\or%
+			mainblue\or%
+			maingray\or%
+			mainblue\or%
+			maingray\or%
+			mainblue\or%
+			maingray\or%
+			mainblue\or%
+ 			maingray\or%
+			mainblue\else%
+			maingray\fi%
+		}%
+	}%
+	\stepcounter{colorCounter}%
+}
 
-    \twentyitemshort{}{\large \textbf{Languages}: \normalsize English, Italian, Romanian.}
+\renewcommand{\section}[1]{
+	{%
+		\color{gray}%
+		\Large\sectioncolor{#1}%
+	}
+}
 
-    \twentyitemshort{}{\large \textbf{Operating Systems}: \normalsize Windows 10/11, Linux (Debian, Ubuntu, Kali Linux), FreeBSD.}
+\renewcommand{\subsection}[1]{
+	\par\vspace{.5\parskip}{%
+		\large\color{gray} #1%
+	}
+	\par\vspace{.25\parskip}%
+}
 
-    \twentyitemshort{}{\large \textbf{IDEs}: \normalsize VSCode (preferred), JetBrains Suite (PyCharm, CLion, IntelliJ, etc.).}
+%----------------------------------------------------------------------------------------
+%	 LONG LIST ENVIRONMENT
+%----------------------------------------------------------------------------------------
 
-\end{twentyshort}
+\setlength{\tabcolsep}{0pt}
 
+% New environment for the long list
+\newenvironment{twenty}{%
+	\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}ll}
+}{%
+	\end{tabular*}
+}
 
-\end{document}
+\newcommand{\twentyitem}[4]{%
+	#1&\parbox[t]{0.83\textwidth}{%
+		\textbf{#2}%
+		\hfill%
+		{\footnotesize#3}\\%
+		#4\vspace{\parsep}%
+	}\\
+}
+
+%----------------------------------------------------------------------------------------
+%	 SMALL LIST ENVIRONMENT
+%----------------------------------------------------------------------------------------
+
+\setlength{\tabcolsep}{0pt}
+
+% New environment for the small list
+\newenvironment{twentyshort}{%
+	\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}ll}
+}{%
+	\end{tabular*}
+}
+
+\newcommand{\twentyitemshort}[2]{%
+	#1&\parbox[t]{0.83\textwidth}{%
+		\textbf{#2}%
+	}\\
+}
+
+%----------------------------------------------------------------------------------------
+%	 MARGINS AND LINKS
+%----------------------------------------------------------------------------------------
+
+\RequirePackage[left=7.6cm,top=0.1cm,right=1cm,bottom=0.2cm,nohead,nofoot]{geometry}
+
+\RequirePackage{hyperref}
